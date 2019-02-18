@@ -1,0 +1,17 @@
+
+Before you run this scripts, adjust some argument values at first:  
+
+- Change path
+```
+grep -lr /home/tmp/ ./ | xargs -i sed -i 's/\/home\/tmp/\/home\/xxx/g' {}
+grep -lr /home/chml/ ./ | xargs -i sed -i 's/\/home\/tmp/\/home\/xxx/g' {}
+```
+
+- Set project, image, network, flavor, az,...
+```
+grep -lr 7d9268e60ea54683ba4a39d40fdd2bf3 ./ | xargs -i sed -i 's/7d9268e60ea54683ba4a39d40fdd2bf3/xxxxxxxxxxxxxxxxxxxxxxxxx/g' {} 
+grep -lr e2f989bc-28f3-472e-b382-21949ffee517 ./ | xargs -i sed -i 's/e2f989bc-28f3-472e-b382-21949ffee517/xxxxxxxxxxxxxxxxxxxxxxxxx/g' {} 
+grep -lr 1ced5673-f751-44fd-95b4-8e25b26174f5 ./ | xargs -i sed -i 's/1ced5673-f751-44fd-95b4-8e25b26174f5/xxxxxxxxxxxxxxxxxxxxxxxxx/g' {} 
+grep -lr 2u2g ./ | xargs -i sed -i 's/2u2g/xxxxxx/g' {} 
+grep -lr az-host123 ./ | xargs -i sed -i 's/az-host123/xxxxx/g' {} 
+```

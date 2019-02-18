@@ -12,6 +12,7 @@ prall_count=$scale
 
 vm_stat=ACTIVE
 vm_operate=delete
+project_id=7d9268e60ea54683ba4a39d40fdd2bf3
 # vm_end_stat=SHUTOFF
 
 startTime=`date +"%Y-%m-%d %H:%M:%S.%N"`
@@ -22,7 +23,7 @@ for vm in $vms;do
 done
 
 while [[ 1 -eq 1 ]]; do
-    instance_numer=$(mysql nova -Nse "select uuid from instances where project_id='7d9268e60ea54683ba4a39d40fdd2bf3' and deleted=0" | wc -l)
+    instance_numer=$(mysql nova -Nse "select uuid from instances where project_id='$project_id' and deleted=0" | wc -l)
     if [[ $instance_number -eq 0 ]]; then
         echo "All instnaces removed"
         break

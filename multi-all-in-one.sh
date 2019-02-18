@@ -24,13 +24,14 @@ function set_quotas() {
 }
 
 function reset_az() {
-    openstack aggregate remove host az-host123 host122
-    openstack aggregate remove host az-host123 host124
-    openstack aggregate add host az-host123 host123
-    openstack aggregate add host az-host123 host121
-    openstack aggregate remove host az-host123 host122
-    openstack aggregate remove host az-host123 host124
-    openstack aggregate show az-host123
+    az=$1
+    openstack aggregate remove host $az host122
+    openstack aggregate remove host $az host124
+    openstack aggregate add host $az host123
+    openstack aggregate add host $az host121
+    openstack aggregate remove host $az host122
+    openstack aggregate remove host $az host124
+    openstack aggregate show $az
 }
 
 function vm_perf() {
@@ -62,18 +63,16 @@ function routine() {
     . ./force-remove.sh
     pushd /home/chml/concurrency/
     set_quotas
-    ## reset_az            # Reset to: az-host123 = host121 + host123
+    ## reset_az $available_zone
     remove_legacy
     
     #=======================================#
     #    x hypervisor 15x instances
     #=======================================#
-    # prall_scale="1 2 3 4 5 6 7 8 9 10"
     prall_scale="1 2 3 4"
     for scale in $prall_scale;do
         prall_count=$((scale*15))
         echo "Begin to run test of $scale hypervisor $prall_count instances"
-        # available_zone=az-host123:host123
         # bash -x auto-multi-vm-perf.sh $prall_count
         vm_perf $prall_count
         sleep 10
@@ -87,13 +86,8 @@ function routine() {
     popd
 }
 
-flavor_id=2u2g
-image_id=e2f989bc-28f3-472e-b382-21949ffee517
-network_id=1ced5673-f751-44fd-95b4-8e25b26174f5
 project_id=7d9268e60ea54683ba4a39d40fdd2bf3
-vm_operate=create
-sysVolumeSize=8
-source_type=image
+available_zone=az-host123
 runcom_file="/home/chml/keystonerc_chml"
 
 # Expect quotas

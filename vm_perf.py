@@ -64,10 +64,7 @@ for r,d,ff in os.walk(data_path):
             with open(fn) as fd:
                 data = fd.readlines()
                 oit = data[0].split()
-                # oit = data
                 op = oit[0]
-                # print("oit: %s" % oit)
-                # print("op: %s" % oit[0])
                 if not op_verify(op):
                     print("INFO: Unknown operation.")
                 else:
